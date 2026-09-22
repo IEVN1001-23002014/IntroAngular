@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container mt-4">
+    <h2>Calculadora de Distancia entre Dos Puntos</h2>
+    <div class="row">
+        <!-- Formulario -->
+        <div class="col-md-6">
+            <form>
+                <h4>Punto 1</h4>
+                <div class="form-group">
+                    <label for="x1">Coordenada x₁:</label>
+                    <input [(ngModel)]="x1" name="x1" type="number" class="form-control" placeholder="Ej: -4">
+                </div>
+                <div class="form-group pt-2">
+                    <label for="y1">Coordenada y₁:</label>
+                    <input [(ngModel)]="y1" name="y1" type="number" class="form-control" placeholder="Ej: -3">
+                </div>
+
+                <h4 class="mt-4">Punto 2</h4>
+                <div class="form-group">
+                    <label for="x2">Coordenada x₂:</label>
+                    <input [(ngModel)]="x2" name="x2" type="number" class="form-control" placeholder="Ej: 2">
+                </div>
+                <div class="form-group pt-2">
+                    <label for="y2">Coordenada y₂:</label>
+                    <input [(ngModel)]="y2" name="y2" type="number" class="form-control" placeholder="Ej: 5">
+                </div>
+
+                <!-- Botón de cálculo -->
+                <button (click)="calcularDistancia()" type="button" class="btn btn-success mt-4">
+                    Calcular Distancia
+                </button>
+            </form>
+        </div>
+
+        <!-- Resultado -->
+        <div class="col-md-6 mt-4 mt-md-0">
+            <h3>Resultado:</h3>
+            <div *ngIf="distancia !== null" class="alert alert-info">
+                <strong>La distancia (d) es: </strong> {{ distancia }}
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
