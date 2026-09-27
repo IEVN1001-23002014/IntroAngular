@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="contenedor-principal">
+  <div class="tarjeta-login">
+    <h2>Iniciar Sesión</h2>
+
+    <div class="grupo-formulario">
+      <label for="usuario">Nombre de usuario</label>
+      <input 
+        type="text" 
+        id="usuario" 
+        [(ngModel)]="usuarioIngresado" 
+        placeholder="Ingresa tu usuario"
+      />
+    </div>
+
+    <div class="grupo-formulario">
+      <label for="contrasena">Contraseña</label>
+      <input 
+        type="password" 
+        id="contrasena" 
+        [(ngModel)]="contrasenaIngresada" 
+        placeholder="Ingresa tu contraseña"
+      />
+    </div>
+
+    <button (click)="validarCredenciales()">Validar Acceso</button>
+
+    <!-- Caja de mensaje condicional -->
+    <div 
+      *ngIf="mensaje" 
+      class="alerta" 
+      [ngClass]="{'alerta-exito': accesoPermitido, 'alerta-error': !accesoPermitido}"
+    >
+      {{ mensaje }}
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

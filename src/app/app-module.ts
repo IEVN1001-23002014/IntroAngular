@@ -7,8 +7,20 @@ import { FormsModule } from '@angular/forms';
 import { HeroesFilterPipe } from './heroes/heroes-filter-pipe';
 import { OperasBas } from './formularios/operas-bas/operas-bas';
 import { Distancia } from './formularios/distancia/distancia';
+import { Cinepolis } from './formularios/cinepolis/cinepolis';
+import { Figuras } from './formularios/figuras/figuras';
+import { Usuarios } from './formularios/usuarios/usuarios';
 @NgModule({
-  declarations: [App, HeroesList, HeroesFilterPipe, OperasBas, Distancia],
+  declarations: [
+    App,
+    HeroesList,
+    HeroesFilterPipe,
+    OperasBas,
+    Distancia,
+    Cinepolis,
+    Figuras,
+    Usuarios,
+  ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [provideBrowserGlobalErrorListeners()],
   bootstrap: [App],

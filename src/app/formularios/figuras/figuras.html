@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="calculator-container">
+  <h2>Calculadora de Áreas</h2>
+
+  <div class="form-group">
+    <label for="shape">Selecciona una figura:</label>
+    <select id="shape" [(ngModel)]="selectedShape" (change)="onShapeChange()">
+      <option value="">-- Elige una opción --</option>
+      <option value="triangulo">Triángulo</option>
+      <option value="rectangulo">Rectángulo</option>
+      <option value="circulo">Círculo</option>
+      <option value="pentagono">Pentágono Regular</option>
+    </select>
+  </div>
+
+  
+  <div *ngIf="selectedShape === 'triangulo' || selectedShape === 'rectangulo'">
+    <div class="form-group">
+      <label>Base:</label>
+      <input type="number" [(ngModel)]="base" placeholder="Ingresa la base">
+    </div>
+    <div class="form-group">
+      <label>Altura:</label>
+      <input type="number" [(ngModel)]="height" placeholder="Ingresa la altura">
+    </div>
+  </div>
+
+ 
+  <div *ngIf="selectedShape === 'circulo'">
+    <div class="form-group">
+      <label>Radio:</label>
+      <input type="number" [(ngModel)]="radius" placeholder="Ingresa el radio">
+    </div>
+  </div>
+
+ 
+  <div *ngIf="selectedShape === 'pentagono'">
+    <div class="form-group">
+      <label>Lado:</label>
+      <input type="number" [(ngModel)]="side" placeholder="Longitud del lado">
+    </div>
+    <div class="form-group">
+      <label>Apotema:</label>
+      <input type="number" [(ngModel)]="apothem" placeholder="Longitud del apotema">
+    </div>
+  </div>
+
+  <button (click)="calculateArea()" [disabled]="!selectedShape">Calcular Área</button>
+
+  <div class="result" *ngIf="area !== null">
+    <h3>El área es: {{ area | number:'1.2-2' }}</h3>
+  </div>
+</div>
+    
+</body>
+</html>

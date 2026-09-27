@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <div class="container mt-4">
+    <h2>Sistema de Compra de Boletos - CINECO</h2>
+    <div class="row">
+        <!-- Formulario -->
+        <div class="col-md-6">
+            <form>
+                <div class="form-group">
+                    <label for="nombre">Nombre del comprador:</label>
+                    <input [(ngModel)]="nombre" name="nombre" type="text" class="form-control" placeholder="Ej: Juan Pérez">
+                </div>
+
+                <div class="form-group pt-2">
+                    <label for="cantidadPersonas">Cantidad de personas en el grupo:</label>
+                    <input [(ngModel)]="cantidadPersonas" name="cantidadPersonas" type="number" min="1" class="form-control" placeholder="Ej: 2">
+                </div>
+
+                <div class="form-group pt-2">
+                    <label for="cantidadBoletos">Cantidad de boletos a comprar:</label>
+                    <input [(ngModel)]="cantidadBoletos" name="cantidadBoletos" type="number" min="1" class="form-control" placeholder="Ej: 5">
+                </div>
+
+                <div class="form-group form-check pt-3">
+                    <input [(ngModel)]="usaCineco" name="usaCineco" type="checkbox" class="form-check-input" id="cinecoCheck">
+                    <label class="form-check-label" for="cinecoCheck">¿Pagar con Tarjeta CINECO? (10% extra de descuento)</label>
+                </div>
+
+                <button (click)="calcularPago()" type="button" class="btn btn-primary mt-4">
+                    Calcular Total
+                </button>
+            </form>
+        </div>
+
+        <!-- Resultados y Validaciones -->
+        <div class="col-md-6 mt-4 mt-md-0">
+            <!-- Mensaje de Error (Límite superado) -->
+            <div *ngIf="mensajeError" class="alert alert-danger">
+                {{ mensajeError }}
+            </div>
+
+            <!-- Recibo de Compra -->
+            <div *ngIf="totalPagar !== null && !mensajeError" class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">Recibo de Compra</h4>
+                </div>
+                <div class="card-body">
+                    <p><strong>Comprador:</strong> {{ nombreResumen }}</p>
+                    <p><strong>Boletos comprados:</strong> {{ boletosResumen }}</p>
+                    <p><strong>Límite máximo permitido para tu grupo:</strong> {{ limiteBoletos }} boletos</p>
+                    <hr>
+                    <h3 class="text-success">Total a Pagar: ${{ totalPagar }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
