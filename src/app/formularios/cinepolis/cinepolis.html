@@ -6,60 +6,225 @@
     <title>Document</title>
 </head>
 <body>
-   <div class="container mt-4">
-    <h2>Sistema de Compra de Boletos - CINECO</h2>
-    <div class="row">
-        <!-- Formulario -->
-        <div class="col-md-6">
-            <form>
-                <div class="form-group">
-                    <label for="nombre">Nombre del comprador:</label>
-                    <input [(ngModel)]="nombre" name="nombre" type="text" class="form-control" placeholder="Ej: Juan Pérez">
-                </div>
+  <style>
+  .ventana-azul {
+    background-color: #3b52a5; /* Azul similar al de la imagen */
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 30px;
+    width: 800px;
+    margin: 0 auto;
+    border: 4px solid #b0b0b0; /* Borde gris de ventana de Windows */
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+  }
+  
+  .titulo-contenedor {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .titulo-blanco {
+    background-color: #f0f0f0;
+    color: #333;
+    display: inline-block;
+    margin: 0;
+    padding: 2px 20px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 24px;
+  }
+  
+  /* Estilos compartidos de los recuadros */
+  .panel {
+    border: 1px solid white;
+    border-radius: 0;
+    padding: 15px 20px;
+  }
+  
+  .panel legend {
+    font-style: italic;
+    font-size: 1.2rem;
+    padding: 0 10px;
+    width: auto;
+    color: white;
+  }
+  
+  .paneles-superior {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .entradas {
+    flex: 0 0 55%;
+  }
+  
+  .salidas {
+    flex: 0 0 40%;
+    height: max-content;
+  }
+  
+  /* Alineación de los inputs */
+  .fila {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  
+  .fila label {
+    flex: 1;
+    font-size: 14px;
+  }
+  
+  .fila input[type="text"], 
+  .fila input[type="number"] {
+    width: 150px;
+    padding: 2px 5px;
+    border: none;
+  }
+  
+  .opciones-radio {
+    width: 150px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .opciones-radio input {
+    margin-right: 5px;
+  }
+  
+  .input-lectura {
+    background-color: #e9ecef;
+    outline: none;
+  }
+  
+  /* Estilos de la zona del logotipo central */
+  .logo-central {
+    text-align: center;
+    margin: 30px 0;
+  }
+  
+  .logo-texto {
+    font-size: 4rem;
+    font-weight: bold;
+    margin: 0;
+    letter-spacing: 2px;
+  }
+  
+  .slogan-texto {
+    font-size: 1.2rem;
+    letter-spacing: 4px;
+    margin: 0;
+    font-weight: normal;
+  }
+  
+  .error-texto {
+    color: #ffb3b3;
+    font-weight: bold;
+    margin-top: 15px;
+  }
+  
+  /* Estilos del recuadro inferior */
+  .panel-inferior {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .acciones {
+    width: 300px;
+  }
+  
+  .botones-accion {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .botones-accion button {
+    padding: 5px 25px;
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #999;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .botones-accion button:active {
+    background-color: #d0d0d0;
+  }
+</style>
 
-                <div class="form-group pt-2">
-                    <label for="cantidadPersonas">Cantidad de personas en el grupo:</label>
-                    <input [(ngModel)]="cantidadPersonas" name="cantidadPersonas" type="number" min="1" class="form-control" placeholder="Ej: 2">
-                </div>
+<div class="ventana-azul">
+  
+  <!-- Título Superior -->
+  <div class="titulo-contenedor">
+    <h2 class="titulo-blanco">Cinepolis</h2>
+  </div>
 
-                <div class="form-group pt-2">
-                    <label for="cantidadBoletos">Cantidad de boletos a comprar:</label>
-                    <input [(ngModel)]="cantidadBoletos" name="cantidadBoletos" type="number" min="1" class="form-control" placeholder="Ej: 5">
-                </div>
-
-                <div class="form-group form-check pt-3">
-                    <input [(ngModel)]="usaCineco" name="usaCineco" type="checkbox" class="form-check-input" id="cinecoCheck">
-                    <label class="form-check-label" for="cinecoCheck">¿Pagar con Tarjeta CINECO? (10% extra de descuento)</label>
-                </div>
-
-                <button (click)="calcularPago()" type="button" class="btn btn-primary mt-4">
-                    Calcular Total
-                </button>
-            </form>
+  <div class="paneles-superior">
+    <!-- Panel Entradas -->
+    <fieldset class="panel entradas">
+      <legend>Entradas</legend>
+      
+      <div class="fila">
+        <label>Nombre</label>
+        <input type="text" [(ngModel)]="nombre" name="nombre">
+      </div>
+      
+      <div class="fila">
+        <label>Cantidad Compradores</label>
+        <input type="number" [(ngModel)]="cantidadPersonas" name="cantidadPersonas" min="1">
+      </div>
+      
+      <div class="fila">
+        <label>Tarjeta Cineco</label>
+        <div class="opciones-radio">
+          <input type="radio" id="siCineco" name="cineco" [value]="true" [(ngModel)]="usaCineco">
+          <label for="siCineco">Si</label>
+          
+          <input type="radio" id="noCineco" name="cineco" [value]="false" [(ngModel)]="usaCineco">
+          <label for="noCineco">No</label>
         </div>
+      </div>
+      
+      <div class="fila">
+        <label>Cantidad De Boletas</label>
+        <input type="number" [(ngModel)]="cantidadBoletos" name="cantidadBoletos" min="1">
+      </div>
+    </fieldset>
 
-        <!-- Resultados y Validaciones -->
-        <div class="col-md-6 mt-4 mt-md-0">
-            <!-- Mensaje de Error (Límite superado) -->
-            <div *ngIf="mensajeError" class="alert alert-danger">
-                {{ mensajeError }}
-            </div>
+    <!-- Panel Salidas -->
+    <fieldset class="panel salidas">
+      <legend>Salidas</legend>
+      <div class="fila">
+        <label>Valor a Pagar</label>
+        <!-- Se muestra el total o se deja en blanco si no se ha calculado -->
+        <input type="text" [value]="totalPagar !== null ? '$' + totalPagar : ''" readonly class="input-lectura">
+      </div>
+    </fieldset>
+  </div>
 
-            <!-- Recibo de Compra -->
-            <div *ngIf="totalPagar !== null && !mensajeError" class="card shadow-sm">
-                <div class="card-header bg-success text-white">
-                    <h4 class="mb-0">Recibo de Compra</h4>
-                </div>
-                <div class="card-body">
-                    <p><strong>Comprador:</strong> {{ nombreResumen }}</p>
-                    <p><strong>Boletos comprados:</strong> {{ boletosResumen }}</p>
-                    <p><strong>Límite máximo permitido para tu grupo:</strong> {{ limiteBoletos }} boletos</p>
-                    <hr>
-                    <h3 class="text-success">Total a Pagar: ${{ totalPagar }}</h3>
-                </div>
-            </div>
-        </div>
-    </div>
+  <!-- Zona Central (Logotipo) -->
+  <div class="logo-central">
+    <h1 class="logo-texto">Cinépolis.</h1>
+    <h3 class="slogan-texto">LA CAPITAL DEL CINE</h3>
+    
+    <!-- Mensaje de error integrado sutilmente para mantener el diseño -->
+    <p class="error-texto" *ngIf="mensajeError">{{ mensajeError }}</p>
+  </div>
+
+  <!-- Panel Acciones -->
+  <div class="panel-inferior">
+    <fieldset class="panel acciones">
+      <legend>Acciones</legend>
+      <div class="botones-accion">
+        <button (click)="calcularPago()">Procesar</button>
+        <button (click)="salir()">Salir</button>
+      </div>
+    </fieldset>
+  </div>
+
 </div>
 </body>
 </html>
